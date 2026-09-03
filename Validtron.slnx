@@ -1,5 +1,4 @@
 <Solution>
-  <Folder Name="/docs/" />
   <Folder Name="/sample/">
     <Project Path="sample/Validtron.Sample/Validtron.Sample.csproj" />
   </Folder>

@@ -30,7 +30,7 @@ dotnet --version
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/Monadion/Validtron.git
+git clone https://github.com/ferdikurnazdm/Validtron.git
 cd Validtron
 ```
 
@@ -154,4 +154,4 @@ Breaking changes must:
 
 ---
 
-Thank you for helping improve Resultify 🚀
+Thank you for helping improve Validtron
