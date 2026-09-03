@@ -1,7 +1,3 @@
-<div align="center">
-
-<img src="logo.png" alt="Validtron" width="140" />
-
 # Validtron
 
 ### Modern, fluent and strongly-typed validation for .NET
@@ -19,7 +15,7 @@ Build expressive validation rules with a clean fluent API — with support for a
 [Examples](sample/Validtron.Sample) ·
 [Report an Issue](https://github.com/ferdikurnazdm/Validtron/issues)
 
-</div>
+
 
 ---
 
