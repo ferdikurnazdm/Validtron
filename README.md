@@ -408,8 +408,6 @@ Validtron is licensed under the [MIT License](LICENSE).
 
 ---
 
-<div align="center">
-
 ### Built for clean and expressive .NET validation.
 
 If Validtron is useful to you, consider giving the project a ⭐.
@@ -417,5 +415,3 @@ If Validtron is useful to you, consider giving the project a ⭐.
 [Documentation](https://ferdikurnazdm.github.io/Validtron/) ·
 [NuGet](https://www.nuget.org/packages/Validtron) ·
 [GitHub](https://github.com/ferdikurnazdm/Validtron)
-
-</div>

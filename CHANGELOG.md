@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-09-03
+
+### Changed
+
+* Removed HTML-based layout elements from the README.
+
 ## [1.0.1] - 2026-09-03
 
 ### Changed
@@ -35,6 +41,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 * NuGet package distribution.
 * Comprehensive project README with installation, quick start, feature overview, usage examples, documentation links and contribution guidance.
 
-[unreleased]: https://github.com/ferdikurnazdm/Validtron/compare/v1.0.1...HEAD
-[1.0.1]: https://github.com/ferdikurnazdm/Validtron/compare/v1.0.0...v1.0.1
+[unreleased]: https://github.com/ferdikurnazdm/Validtron/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/ferdikurnazdm/Validtron/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/ferdikurnazdm/Validtron/releases/tag/v1.0.1
 [1.0.0]: https://github.com/ferdikurnazdm/Validtron/releases/tag/v1.0.0
