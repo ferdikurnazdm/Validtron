@@ -52,18 +52,18 @@ jobs:
 
       # Restore
       - name: Restore
-        run: dotnet restore src/Resultron/Resultron.csproj
+        run: dotnet restore src/Validtron/Validtron.csproj
 
 
       # Build
       - name: Build
-        run: dotnet build src/Resultron/Resultron.csproj --configuration Release --no-restore
+        run: dotnet build src/Validtron/Validtron.csproj --configuration Release --no-restore
 
 
       # Pack
       - name: Pack
         run: |
-          dotnet pack src/Resultron/Resultron.csproj \
+          dotnet pack src/Validtron/Validtron.csproj \
             --configuration Release \
             --no-build \
             --no-restore \
@@ -81,6 +81,6 @@ jobs:
       # Push
       - name: Push
         run: |
-          dotnet nuget push src/Resultron/bin/Release/*.nupkg \
+          dotnet nuget push src/Validtron/bin/Release/*.nupkg \
             --api-key ${{ steps.login.outputs.NUGET_API_KEY }} \
             --source https://api.nuget.org/v3/index.json
