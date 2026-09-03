@@ -1,0 +1,82 @@
+using FluentAssertions;
+using System.Globalization;
+using Validtron.Configurations;
+using Validtron.Extensions;
+using Validtron.UnitTest.Fixtures;
+
+namespace Validtron.UnitTest.Configurations;
+
+public sealed class ConfigurationTests : IDisposable
+{
+    private readonly Func<string, CultureInfo, object[], string> _originalResolver;
+
+    private readonly CascadeMode _originalCascadeMode;
+
+    public ConfigurationTests()
+    {
+        _originalResolver = ValidationMessages.Resolver;
+
+        _originalCascadeMode = ValidationDefaults.DefaultCascadeMode;
+    }
+
+    public void Dispose()
+    {
+        ValidationMessages.Resolver = _originalResolver;
+
+        ValidationDefaults.DefaultCascadeMode = _originalCascadeMode;
+    }
+
+    [Fact]
+    public void ValidationMessages_WhenCustomResolverIsConfigured_ShouldUseCustomMessage()
+    {
+        // Arrange
+        ValidationMessages.Resolver = (key, _, _) => $"CUSTOM:{key}";
+
+        var validator = new NameValidator();
+
+        var person = new Person
+        {
+            Name = null
+        };
+
+        // Act
+        var result = validator.Validate(person);
+
+        // Assert
+        _ = result.Errors.Should().ContainSingle();
+
+        _ = result.Errors.Single().ErrorMessage.Should().Be("CUSTOM:NotEmpty");
+    }
+
+    [Fact]
+    public void ValidationDefaults_WhenDefaultCascadeModeChangesAfterRuleCreation_ShouldKeepCapturedMode()
+    {
+        // Arrange
+        ValidationDefaults.DefaultCascadeMode = CascadeMode.Continue;
+
+        var validator = new DefaultCascadeValidator();
+
+        ValidationDefaults.DefaultCascadeMode = CascadeMode.Stop;
+
+        var person = new Person
+        {
+            Name = string.Empty
+        };
+
+        // Act
+        var result = validator.Validate(person);
+
+        // Assert
+        _ = result.Errors.Should().HaveCount(2);
+    }
+
+    private sealed class DefaultCascadeValidator : Validator<Person>
+    {
+        public DefaultCascadeValidator()
+        {
+            _ = RuleFor(x => x.Name)
+                .NotEmpty("required")
+                .MinimumLength(3, "min");
+        }
+    }
+}

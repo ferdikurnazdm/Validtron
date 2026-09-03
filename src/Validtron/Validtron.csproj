@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+      <Title>Validtron</Title>
+      <PackageId>Validtron</PackageId>
+
+
+      <Description> 
+          A lightweight, fluent, and extensible validation library for .NET. 
+          Supports strongly typed validation rules, synchronous and asynchronous validation, 
+          conditional rules, cascade modes, nested validators, collection validation, 
+          custom rules, configurable validation messages, and dependency injection integration. 
+      </Description>
+
+      <Authors>ferdikurnazdm</Authors>
+      <Company>ferdikurnazdm</Company>
+
+      <PackageProjectUrl>https://ferdikurnazdm.github.io/Validtron/</PackageProjectUrl>
+      <RepositoryUrl>https://github.com/ferdikurnazdm/Validtron</RepositoryUrl>
+      <RepositoryType>git</RepositoryType>
+
+      <PackageTags> 
+          validation;validator;fluent-validation;dotnet;csharp;async-validation;dependency-injection 
+      </PackageTags>
+
+      <PackageIcon>logo.png</PackageIcon>
+      <PackageReadmeFile>README.md</PackageReadmeFile>
+      <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+      <Copyright>Copyright © 2026 ferdikurnazdm</Copyright>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\LICENSE">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\..\logo.png">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\..\README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+  </ItemGroup>
+
+</Project>
