@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quick start guide for Validtron, a fluent validation library for .NET.">
+  <meta name="theme-color" content="#050b18">
+  <title>Quick Start — Validtron</title>
+  <link rel="icon" href="../assets/images/validtron-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="docs-body">
+  <div class="ambient ambient-one"></div>
+  <header class="nav shell docs-nav">
+    <a class="brand" href="../index.html" aria-label="Validtron home">
+      <span class="brand-mark"><img src="../assets/images/validtron-mark.svg" alt=""></span>
+      <span>Validtron</span>
+    </a>
+    <nav>
+      <a href="../index.html#features">Features</a>
+      <a class="active" href="quick-start.html">Docs</a>
+      <a class="github-link" href="https://github.com/ferdikurnazdm/Validtron" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main class="docs-layout shell">
+    <aside class="docs-sidebar">
+      <span class="sidebar-label">Getting started</span>
+      <a class="active" href="#installation">Installation</a>
+      <a href="#first-validator">First validator</a>
+      <a href="#validation-result">Validation result</a>
+      <span class="sidebar-label">Core patterns</span>
+      <a href="#async">Async validation</a>
+      <a href="#conditions">Conditions</a>
+      <a href="#nested">Nested & collections</a>
+      <a href="#dependency-injection">Dependency injection</a>
+      <span class="sidebar-label">Project</span>
+      <a href="https://github.com/ferdikurnazdm/Validtron/tree/main/sample/Validtron.Sample" target="_blank" rel="noreferrer">Sample ↗</a>
+      <a href="https://github.com/ferdikurnazdm/Validtron" target="_blank" rel="noreferrer">Source ↗</a>
+    </aside>
+
+    <article class="docs-content">
+      <div class="docs-hero">
+        <span class="kicker">Documentation</span>
+        <h1>Quick Start</h1>
+        <p>Define expressive validation rules, run them synchronously or asynchronously, and integrate validators with your .NET dependency injection container.</p>
+      </div>
+
+      <section id="installation" class="docs-section">
+        <h2><span>01</span> Installation</h2>
+        <p>Add Validtron to your project using the .NET CLI.</p>
+        <div class="doc-code"><div class="doc-code-head"><span>Terminal</span><button type="button" data-copy="dotnet add package Validtron">Copy</button></div><pre><code><span class="terminal-prompt">$</span> dotnet add package Validtron</code></pre></div>
+        <div class="callout"><strong>Target framework</strong><span>The current library project targets <code>net10.0</code>.</span></div>
+      </section>
+
+      <section id="first-validator" class="docs-section">
+        <h2><span>02</span> Create your first validator</h2>
+        <p>Inherit from <code>Validator&lt;T&gt;</code>, then declare rules using <code>RuleFor</code>.</p>
+        <div class="doc-code"><div class="doc-code-head"><span>UserValidator.cs</span><button type="button" data-copy-target="validator-example">Copy</button></div><pre id="validator-example"><code><span class="kw">using</span> Validtron;
+<span class="kw">using</span> Validtron.Extensions;
+
+<span class="kw">public sealed class</span> <span class="type">UserValidator</span> : Validator&lt;User&gt;
+{
+    <span class="kw">public</span> UserValidator()
+    {
+        RuleFor(x =&gt; x.Email)
+            .NotEmpty()
+            .EmailAddress();
+
+        RuleFor(x =&gt; x.Age)
+            .GreaterThanOrEqual(<span class="num">18</span>)
+            .LessThan(<span class="num">100</span>);
+    }
+}</code></pre></div>
+        <p>Validtron also exposes rules for lengths, ranges, enums, regular expressions and custom predicates, plus custom error messages.</p>
+      </section>
+
+      <section id="validation-result" class="docs-section">
+        <h2><span>03</span> Run validation</h2>
+        <p>Call <code>Validate</code> for purely synchronous rules. The result exposes <code>IsValid</code>, a detailed <code>Errors</code> list and grouped <code>ErrorsByProperty</code>.</p>
+        <div class="doc-code"><div class="doc-code-head"><span>Validation</span><button type="button" data-copy-target="result-example">Copy</button></div><pre id="result-example"><code><span class="kw">var</span> result = <span class="kw">new</span> UserValidator().Validate(user);
+
+<span class="kw">if</span> (!result.IsValid)
+{
+    <span class="kw">foreach</span> (<span class="kw">var</span> error <span class="kw">in</span> result.Errors)
+    {
+        Console.WriteLine(
+            <span class="str">$"{error.PropertyName}: {error.ErrorMessage}"</span>);
+    }
+}</code></pre></div>
+      </section>
+
+      <section id="async" class="docs-section">
+        <h2><span>04</span> Async validation</h2>
+        <p>For rules that depend on I/O, define an asynchronous predicate with <code>MustAsync</code> and execute the validator with <code>ValidateAsync</code>.</p>
+        <div class="doc-code"><div class="doc-code-head"><span>Async rule</span><button type="button" data-copy-target="async-example">Copy</button></div><pre id="async-example"><code>RuleFor(x =&gt; x.UserName)
+    .NotEmpty()
+    .MustAsync(<span class="kw">async</span> (value, ct) =&gt;
+        !<span class="kw">await</span> userStore.ExistsAsync(value!, ct));
+
+<span class="kw">var</span> result = <span class="kw">await</span> validator.ValidateAsync(model, ct);</code></pre></div>
+        <div class="callout warn"><strong>Sync vs async</strong><span>A validator containing async rules should be executed with <code>ValidateAsync</code>.</span></div>
+      </section>
+
+      <section id="conditions" class="docs-section">
+        <h2><span>05</span> Conditional rules & cascade</h2>
+        <p>Attach rules only when they make sense for the current object, and choose whether the chain continues after a failure.</p>
+        <div class="doc-code"><div class="doc-code-head"><span>Conditional validation</span><button type="button" data-copy-target="condition-example">Copy</button></div><pre id="condition-example"><code>RuleFor(x =&gt; x.TaxNumber)
+    .NotEmpty()
+    .Length(<span class="num">10</span>, <span class="num">10</span>)
+    .When(x =&gt; x.IsCompany);
+
+RuleFor(x =&gt; x.Name)
+    .Cascade(CascadeMode.Continue)
+    .NotEmpty()
+    .MinimumLength(<span class="num">3</span>);</code></pre></div>
+      </section>
+
+      <section id="nested" class="docs-section">
+        <h2><span>06</span> Nested objects & collections</h2>
+        <p>Reuse validators across object graphs with <code>SetValidator</code>, and apply rules to collection elements with <code>RuleForEach</code>.</p>
+        <div class="doc-code"><div class="doc-code-head"><span>Composition</span><button type="button" data-copy-target="nested-example">Copy</button></div><pre id="nested-example"><code>RuleFor(x =&gt; x.Address)
+    .SetValidator(<span class="kw">new</span> AddressValidator());
+
+RuleForEach(x =&gt; x.PreviousAddresses)
+    .SetValidator(<span class="kw">new</span> AddressValidator());
+
+RuleForEach(x =&gt; x.Tags)
+    .NotEmpty()
+    .MinimumLength(<span class="num">2</span>);</code></pre></div>
+      </section>
+
+      <section id="dependency-injection" class="docs-section">
+        <h2><span>07</span> Dependency injection</h2>
+        <p>Validtron can scan an assembly and register concrete validators as scoped implementations of <code>IValidator&lt;T&gt;</code>.</p>
+        <div class="doc-code"><div class="doc-code-head"><span>Program.cs</span><button type="button" data-copy-target="di-example">Copy</button></div><pre id="di-example"><code><span class="kw">using</span> Validtron.DependencyInjection;
+
+services.AddValidtron(
+    <span class="kw">typeof</span>(Program).Assembly);
+
+<span class="comment">// Then inject the validator where you need it.</span>
+<span class="kw">public sealed class</span> <span class="type">UserService</span>(
+    IValidator&lt;User&gt; validator)
+{
+}</code></pre></div>
+      </section>
+
+      <div class="docs-next">
+        <div><span>Next step</span><strong>Explore the full sample project</strong></div>
+        <a class="btn primary" href="https://github.com/ferdikurnazdm/Validtron/tree/main/sample/Validtron.Sample" target="_blank" rel="noreferrer">Open sample ↗</a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer shell docs-footer">
+    <p>Validtron · Fluent validation for .NET</p>
+    <div class="footer-links"><a href="../index.html">Home</a><a href="https://github.com/ferdikurnazdm/Validtron" target="_blank" rel="noreferrer">GitHub</a></div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

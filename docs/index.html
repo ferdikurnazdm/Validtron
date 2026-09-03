@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Validtron is a lightweight, fluent and extensible validation library for modern .NET applications.">
+  <meta name="theme-color" content="#050b18">
+  <title>Validtron — Fluent validation for modern .NET</title>
+  <link rel="icon" href="assets/images/validtron-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <header class="nav shell" data-nav>
+    <a class="brand" href="./" aria-label="Validtron home">
+      <span class="brand-mark"><img src="assets/images/validtron-mark.svg" alt=""></span>
+      <span>Validtron</span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav data-nav-menu>
+      <a href="#features">Features</a>
+      <a href="#quick-start">Quick Start</a>
+      <a href="guide/quick-start.html">Docs</a>
+      <a class="github-link" href="https://github.com/ferdikurnazdm/Validtron" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><span class="status-dot"></span> Lightweight validation for .NET 10</div>
+        <h1>Validation rules that read like <span>intent.</span></h1>
+        <p class="hero-lead">Build strongly typed validation with a fluent API — synchronous or asynchronous, conditional or nested — without turning your domain layer into ceremony.</p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="guide/quick-start.html">Get Started <span aria-hidden="true">→</span></a>
+          <a class="btn secondary" href="https://github.com/ferdikurnazdm/Validtron" target="_blank" rel="noreferrer">View on GitHub</a>
+        </div>
+
+        <div class="install-command" role="group" aria-label="Install Validtron">
+          <div>
+            <span class="terminal-prompt">$</span>
+            <code>dotnet add package Validtron</code>
+          </div>
+          <button class="copy-btn" type="button" data-copy="dotnet add package Validtron" aria-label="Copy install command">Copy</button>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal delay-1" aria-hidden="true">
+        <div class="logo-orbit orbit-one"></div>
+        <div class="logo-orbit orbit-two"></div>
+        <div class="logo-stage">
+          <img class="hero-logo" src="https://raw.githubusercontent.com/ferdikurnazdm/Validtron/main/logo.png" onerror="this.onerror=null;this.src='assets/images/validtron-mark.svg';" alt="">
+        </div>
+        <div class="floating-chip chip-top"><span>✓</span> strongly typed</div>
+        <div class="floating-chip chip-bottom"><span>⚡</span> async ready</div>
+      </div>
+    </section>
+
+    <section class="trust-strip shell reveal" aria-label="Project attributes">
+      <span>Fluent API</span><i></i><span>Sync + Async</span><i></i><span>Dependency Injection</span><i></i><span>MIT License</span><i></i><span>.NET 10</span>
+    </section>
+
+    <section id="features" class="section shell">
+      <div class="section-heading reveal">
+        <span class="kicker">Designed for real applications</span>
+        <h2>Small API. Serious validation flow.</h2>
+        <p>Validtron keeps rules explicit and composable, while covering the validation patterns that show up in production code.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card featured reveal">
+          <div class="feature-icon">{ }</div>
+          <h3>Fluent & strongly typed</h3>
+          <p>Define rules against expressions with familiar, readable chains such as <code>NotEmpty</code>, <code>EmailAddress</code>, ranges and custom predicates.</p>
+          <div class="mini-code"><span>RuleFor</span>(x =&gt; x.Email)<br>&nbsp;&nbsp;.NotEmpty()<br>&nbsp;&nbsp;.EmailAddress();</div>
+        </article>
+
+        <article class="feature-card reveal delay-1">
+          <div class="feature-icon">↻</div>
+          <h3>Sync + async validation</h3>
+          <p>Use fast synchronous rules where possible and asynchronous checks when validation needs I/O or external state.</p>
+        </article>
+
+        <article class="feature-card reveal delay-2">
+          <div class="feature-icon">◇</div>
+          <h3>Conditions & cascade</h3>
+          <p>Express context-aware behavior with conditional rules and control how validation continues after a failure.</p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">⌘</div>
+          <h3>Nested objects</h3>
+          <p>Compose validators for child objects instead of duplicating rules across models.</p>
+        </article>
+
+        <article class="feature-card reveal delay-1">
+          <div class="feature-icon">[ ]</div>
+          <h3>Collections</h3>
+          <p>Validate every element in a collection with <code>RuleForEach</code> and reuse nested validators per item.</p>
+        </article>
+
+        <article class="feature-card reveal delay-2">
+          <div class="feature-icon">DI</div>
+          <h3>Built-in DI integration</h3>
+          <p>Register validators from an assembly and resolve them through <code>IValidator&lt;T&gt;</code> in your application services.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="quick-start" class="section shell quick-start">
+      <div class="section-heading reveal">
+        <span class="kicker">From model to result</span>
+        <h2>Get productive in minutes.</h2>
+      </div>
+
+      <div class="quick-grid">
+        <div class="steps reveal">
+          <article class="step active" data-code-tab="define">
+            <span>01</span>
+            <div><h3>Define a validator</h3><p>Inherit from <code>Validator&lt;T&gt;</code> and declare the rules your model must satisfy.</p></div>
+          </article>
+          <article class="step" data-code-tab="validate">
+            <span>02</span>
+            <div><h3>Validate your model</h3><p>Run validation synchronously or asynchronously and receive a structured result.</p></div>
+          </article>
+          <article class="step" data-code-tab="inject">
+            <span>03</span>
+            <div><h3>Plug into DI</h3><p>Register validators from your assembly and inject the typed validator where it belongs.</p></div>
+          </article>
+        </div>
+
+        <div class="code-window reveal delay-1">
+          <div class="code-toolbar">
+            <div class="window-dots"><span></span><span></span><span></span></div>
+            <span class="code-file" data-code-file>UserValidator.cs</span>
+            <button class="copy-icon" type="button" data-copy-target="active-code" aria-label="Copy code">Copy</button>
+          </div>
+          <pre class="code-panel active" data-code-panel="define" id="active-code"><code><span class="kw">using</span> Validtron;
+<span class="kw">using</span> Validtron.Extensions;
+
+<span class="kw">public sealed class</span> <span class="type">UserValidator</span> : Validator&lt;User&gt;
+{
+    <span class="kw">public</span> UserValidator()
+    {
+        RuleFor(x =&gt; x.Email)
+            .NotEmpty()
+            .EmailAddress();
+
+        RuleFor(x =&gt; x.Age)
+            .GreaterThanOrEqual(<span class="num">18</span>);
+    }
+}</code></pre>
+          <pre class="code-panel" data-code-panel="validate"><code><span class="kw">var</span> validator = <span class="kw">new</span> UserValidator();
+<span class="kw">var</span> result = validator.Validate(user);
+
+<span class="kw">if</span> (!result.IsValid)
+{
+    <span class="kw">foreach</span> (<span class="kw">var</span> error <span class="kw">in</span> result.Errors)
+    {
+        Console.WriteLine(
+            <span class="str">$"{error.PropertyName}: {error.ErrorMessage}"</span>);
+    }
+}</code></pre>
+          <pre class="code-panel" data-code-panel="inject"><code><span class="kw">using</span> Validtron.DependencyInjection;
+
+services.AddValidtron(
+    <span class="kw">typeof</span>(Program).Assembly);
+
+<span class="comment">// Resolve IValidator&lt;User&gt; through DI</span>
+<span class="kw">public sealed class</span> <span class="type">UserService</span>(
+    IValidator&lt;User&gt; validator)
+{
+    <span class="comment">// ...</span>
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell async-section">
+      <div class="async-card reveal">
+        <div class="async-copy">
+          <span class="kicker">Async when you need it</span>
+          <h2>Keep external checks inside the validation flow.</h2>
+          <p>Use asynchronous predicates for uniqueness checks, database-backed rules or service calls, then run the validator with <code>ValidateAsync</code>.</p>
+          <a class="text-link" href="guide/quick-start.html#async">See async validation <span>→</span></a>
+        </div>
+        <div class="async-code">
+          <pre><code>RuleFor(x =&gt; x.UserName)
+    .NotEmpty()
+    .MustAsync(async (value, ct) =&gt;
+        !await userStore.ExistsAsync(value!, ct));
+
+var result = await validator.ValidateAsync(model);</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell result-section">
+      <div class="section-heading reveal">
+        <span class="kicker">Useful output by default</span>
+        <h2>Validation results stay easy to consume.</h2>
+        <p>Inspect a single validity flag, iterate detailed failures, or group messages by property for API and UI scenarios.</p>
+      </div>
+      <div class="result-grid reveal delay-1">
+        <div class="result-card"><strong>IsValid</strong><span>Fast success / failure check</span></div>
+        <div class="result-card"><strong>Errors</strong><span>Property + error message failures</span></div>
+        <div class="result-card"><strong>ErrorsByProperty</strong><span>Ready-to-use grouped messages</span></div>
+      </div>
+    </section>
+
+    <section class="cta shell reveal">
+      <div>
+        <span class="kicker">Ready to validate?</span>
+        <h2>Keep your rules close to your intent.</h2>
+        <p>Start with the quick guide, inspect the sample project, or explore the source.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn primary" href="guide/quick-start.html">Read the docs</a>
+        <a class="btn secondary" href="https://github.com/ferdikurnazdm/Validtron/tree/main/sample/Validtron.Sample" target="_blank" rel="noreferrer">Sample project</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <a class="brand footer-brand" href="./"><span class="brand-mark"><img src="assets/images/validtron-mark.svg" alt=""></span><span>Validtron</span></a>
+    <p>A lightweight, fluent and extensible validation library for .NET.</p>
+    <div class="footer-links">
+      <a href="https://github.com/ferdikurnazdm/Validtron" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://github.com/ferdikurnazdm/Validtron/blob/main/LICENSE" target="_blank" rel="noreferrer">MIT License</a>
+      <a href="https://github.com/ferdikurnazdm/Validtron/blob/main/CONTRIBUTING.md" target="_blank" rel="noreferrer">Contributing</a>
+    </div>
+    <span class="copyright">© 2026 ferdikurnazdm</span>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

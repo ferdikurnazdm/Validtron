@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Validtron mark</title>
+  <desc id="desc">A dimensional golden V on a dark rounded square.</desc>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff4a8"/>
+      <stop offset="0.2" stop-color="#ffd51f"/>
+      <stop offset="0.65" stop-color="#ffb800"/>
+      <stop offset="1" stop-color="#b86a00"/>
+    </linearGradient>
+    <linearGradient id="inner" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffef72"/>
+      <stop offset="1" stop-color="#f29100"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="52" fill="#030710"/>
+  <path d="M46 48c-11 0-18 11-13 21l64 137c12 25 49 25 61 0l65-137c5-10-3-21-14-21h-21c-7 0-13 4-16 10l-45 101-44-101c-3-6-9-10-16-10H46Z" fill="url(#gold)" filter="url(#glow)"/>
+  <path d="M67 58 112 163c6 14 26 14 32 0l45-105h18l-62 134c-7 16-29 16-36 0L48 58h19Z" fill="url(#inner)" opacity=".78"/>
+  <path d="M49 58h18l45 105c3 7 8 11 14 12-10 1-20-4-25-15L56 63c-2-4-4-5-7-5Z" fill="#fff7bd" opacity=".65"/>
+</svg>
